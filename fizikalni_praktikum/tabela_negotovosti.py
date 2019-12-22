@@ -46,8 +46,10 @@ function = ro*(1/(pi*d2**2)**2-1/(pi*d1**2)**2)/2
 
 # ne spreminjat, mislm lah ampak se lah kej breaka
 
+
 def format_text(num):
-    return str(f'%.{natancnost_mest}E' % num).replace('+','')
+    return str(f'%.{natancnost_mest}E' % num).replace('+', '')
+
 
 values = [(x[0], x[1][0]) for x in data]
 
@@ -80,27 +82,27 @@ plt.title('Negotovost za funkcijo')
 plt.xticks([])
 plt.yticks([])
 
-plt.subplots_adjust(left=0.05, bottom=0, right=0.97, top=0.94)
+plt.subplots_adjust(left=0.03, bottom=0, right=0.97, top=0.94)
 
 plt.axis('off')
 
 table = plt.table(cellText=formated_results, loc='center left',
                   rowLabels=rows, colLabels=columns)
 
-plt.text(0.35, 0.85, '$'+racunamo+'=' +
+plt.text(0.35, 0.9, '$'+racunamo+'=' +
          latex(function)+'$', fontsize=text_size+5)
 table.set_fontsize(text_size)
-table.scale(1, 4)
+table.scale(1, 3)
 table.auto_set_font_size(False)
 
 
 latex_vrednost = format_text(vrednost_f)
 latex_error = format_text(final_error)
 
-print(latex_vrednost,'+-',latex_error)
+print(latex_vrednost, '+-', latex_error)
 
 plt.text(0.02, 0.1, r'$'+racunamo+' = ' + latex_vrednost + ' \pm ' +
-         latex_error +'$', fontsize=text_size+4)
+         latex_error + '$', fontsize=text_size+4)
 
 
 plt.show()
