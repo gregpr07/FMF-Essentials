@@ -1,0 +1,6 @@
+[submodule "numerika-fmf"]
+	path = numerika-fmf
+	url = https://github.com/jureslak/numerika-fmf
+[submodule "listi-na-kolokvijih"]
+	path = listi-na-kolokvijih
+	url = https://github.com/jureslak/listi-na-kolokvijih
