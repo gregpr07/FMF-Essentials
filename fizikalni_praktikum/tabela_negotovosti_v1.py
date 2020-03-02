@@ -9,12 +9,9 @@ from decimal import Decimal
 
 
 class Negotovost:
-    def __init__(self, data, function, variable='v', floating_points=3, text_size=20):
+    def __init__(self, data, function):
         self.data = data
         self.function = sympify(function)
-        self.variable = variable
-        self.floating_points = floating_points
-        self.text_size = text_size
 
     def format_text(self, num):
         return str(f'%.{self.floating_points}E' % num).replace('+', '')
@@ -46,7 +43,10 @@ class Negotovost:
 
         return (self.vrednost_f, self.final_error)
 
-    def draw_table(self):
+    def draw_table(self, variable='v', floating_points=3, text_size=20):
+        self.variable = variable
+        self.floating_points = floating_points
+        self.text_size = text_size
 
         self.calculate_error()
 
