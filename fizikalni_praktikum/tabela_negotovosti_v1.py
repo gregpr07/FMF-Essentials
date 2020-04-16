@@ -9,20 +9,23 @@ from decimal import Decimal
 
 
 class Negotovost:
-    def __init__(self, data, function):
+    def __init__(self, data, function, floating_points=3):
         self.data = data
         self.function = sympify(function)
+        self.floating_points = floating_points
+        self.results = []
+        self.formated_results = []
+        self.vrednost_f = 0
+        self.final_error = 0
+
+    def __str__(self):
+        return (str(self.data))
 
     def format_text(self, num):
         return str(f'%.{self.floating_points}E' % num).replace('+', '')
 
-    results = []
-    formated_results = []
-    vrednost_f = 0
-    final_error = 0
-
     def calculate_error(self):
-        if not self.results:
+        if not self.vrednost_f:
             values = [(x[0], x[1]) for x in self.data]
 
             for el in self.data:
@@ -43,10 +46,10 @@ class Negotovost:
 
         return (self.vrednost_f, self.final_error)
 
-    def draw_table(self, variable='v', floating_points=3, text_size=20):
+    def draw_table(self, variable='v', text_size=20, title=''):
         self.variable = variable
-        self.floating_points = floating_points
         self.text_size = text_size
+        self.title = title
 
         self.calculate_error()
 
@@ -54,7 +57,8 @@ class Negotovost:
                    r'$\sigma_i$', r'$\sigma_i \cdot \frac{\partial %s}{\partial x_i}$' % self.variable]
         rows = ['$'+latex(sympify(x[0]))+'$' for x in self.data if x[2]]
 
-        #plt.title('Negotovost za funkcijo')
+        if self.title:
+            plt.title(self.title)
 
         plt.xticks([])
         plt.yticks([])
