@@ -28,7 +28,7 @@ class Negotovost:
             return num
         return str(f'%.{self.floating_points}E' % num).replace('+', '')
 
-    def calculate_error(self):
+    def calculate_error(self, units=''):
         if not self.vrednost_f:
             values = [(x[0], x[1]) for x in self.data]
 
@@ -39,9 +39,15 @@ class Negotovost:
                     deltaa = el[2]
                     error = (float(deriv.doit().subs(values) * deltaa))
                     latfunc = '$'+latex(res)+'$'
+                    try:
+                        unit = " "+str(el[3])
+                    except:
+                        unit = ""
+                    print(unit)
+
                     self.results.append((latfunc, deltaa, error))
                     self.formated_results.append(
-                        (latfunc, self.format_text(deltaa), self.format_text(error)))
+                        (latfunc, "$"+str(self.format_text(deltaa))+"\;"+unit+"$", "$"+str(self.format_text(error))+"\;"+units+"$"))
 
             self.vrednost_f = float(self.function.doit().subs(values))
 
@@ -55,10 +61,10 @@ class Negotovost:
         self.text_size = text_size
         self.title = title
 
-        self.calculate_error()
+        self.calculate_error(units=units)
 
         columns = [r'$\frac{\partial %s}{\partial x_i}$' % self.variable,
-                   r'$\sigma_i$', r'$\sigma_i \cdot \frac{\partial %s}{\partial x_i}$' % self.variable]
+                   r'$\sigma_i$', r'$\sigma_i \cdot \frac{\partial %s}{\partial x_i} $' % self.variable]
         rows = ['$'+latex(sympify(x[0]))+'$' for x in self.data if x[2]]
 
         latex_vrednost = self.format_text(self.vrednost_f)
