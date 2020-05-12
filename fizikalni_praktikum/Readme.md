@@ -42,5 +42,5 @@ Narise tabelo. Poljubni parametri.
 `varible` ima lahko latex format.
 
 ```
-Negotovost(data,function).draw_table(variable='v', floating_points=3, text_size=20)
+Negotovost(data,function).draw_table(self, variable='v', text_size=15, title='', units="", display_img=False)
 ```
